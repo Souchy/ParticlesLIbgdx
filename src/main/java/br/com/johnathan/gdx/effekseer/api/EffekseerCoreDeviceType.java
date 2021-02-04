@@ -9,46 +9,43 @@
 package br.com.johnathan.gdx.effekseer.api;
 
 public final class EffekseerCoreDeviceType {
-  public final static EffekseerCoreDeviceType Unknown = new EffekseerCoreDeviceType("Unknown");
-  public final static EffekseerCoreDeviceType OpenGL = new EffekseerCoreDeviceType("OpenGL");
-
-  public final int swigValue() {
-    return swigValue;
-  }
-
-  public String toString() {
-    return swigName;
-  }
-
-  public static EffekseerCoreDeviceType swigToEnum(int swigValue) {
-    if (swigValue < swigValues.length && swigValue >= 0 && swigValues[swigValue].swigValue == swigValue)
-      return swigValues[swigValue];
-    for (int i = 0; i < swigValues.length; i++)
-      if (swigValues[i].swigValue == swigValue)
-        return swigValues[i];
-    throw new IllegalArgumentException("No enum " + EffekseerCoreDeviceType.class + " with value " + swigValue);
-  }
-
-  private EffekseerCoreDeviceType(String swigName) {
-    this.swigName = swigName;
-    this.swigValue = swigNext++;
-  }
-
-  private EffekseerCoreDeviceType(String swigName, int swigValue) {
-    this.swigName = swigName;
-    this.swigValue = swigValue;
-    swigNext = swigValue+1;
-  }
-
-  private EffekseerCoreDeviceType(String swigName, EffekseerCoreDeviceType swigEnum) {
-    this.swigName = swigName;
-    this.swigValue = swigEnum.swigValue;
-    swigNext = this.swigValue+1;
-  }
-
-  private static EffekseerCoreDeviceType[] swigValues = { Unknown, OpenGL };
-  private static int swigNext = 0;
-  private final int swigValue;
-  private final String swigName;
+	public final static EffekseerCoreDeviceType Unknown = new EffekseerCoreDeviceType("Unknown");
+	public final static EffekseerCoreDeviceType OpenGL = new EffekseerCoreDeviceType("OpenGL");
+	
+	public final int swigValue() {
+		return swigValue;
+	}
+	
+	public String toString() {
+		return swigName;
+	}
+	
+	public static EffekseerCoreDeviceType swigToEnum(int swigValue) {
+		if(swigValue < swigValues.length && swigValue >= 0 && swigValues[swigValue].swigValue == swigValue) return swigValues[swigValue];
+		for (int i = 0; i < swigValues.length; i++)
+			if(swigValues[i].swigValue == swigValue) return swigValues[i];
+		throw new IllegalArgumentException("No enum " + EffekseerCoreDeviceType.class + " with value " + swigValue);
+	}
+	
+	private EffekseerCoreDeviceType(String swigName) {
+		this.swigName = swigName;
+		this.swigValue = swigNext++;
+	}
+	
+	private EffekseerCoreDeviceType(String swigName, int swigValue) {
+		this.swigName = swigName;
+		this.swigValue = swigValue;
+		swigNext = swigValue + 1;
+	}
+	
+	private EffekseerCoreDeviceType(String swigName, EffekseerCoreDeviceType swigEnum) {
+		this.swigName = swigName;
+		this.swigValue = swigEnum.swigValue;
+		swigNext = this.swigValue + 1;
+	}
+	
+	private static EffekseerCoreDeviceType[] swigValues = { Unknown, OpenGL };
+	private static int swigNext = 0;
+	private final int swigValue;
+	private final String swigName;
 }
-

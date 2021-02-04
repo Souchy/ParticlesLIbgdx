@@ -9,43 +9,43 @@
 package br.com.johnathan.gdx.effekseer.api;
 
 public class EffekseerBackendCore {
-  private transient long swigCPtr;
-  protected transient boolean swigCMemOwn;
-
-  protected EffekseerBackendCore(long cPtr, boolean cMemoryOwn) {
-    swigCMemOwn = cMemoryOwn;
-    swigCPtr = cPtr;
-  }
-
-  protected static long getCPtr(EffekseerBackendCore obj) {
-    return (obj == null) ? 0 : obj.swigCPtr;
-  }
-
-  @SuppressWarnings("deprecation")
-  protected void finalize() {
-    delete();
-  }
-
-  public synchronized void delete() {
-    if (swigCPtr != 0) {
-      if (swigCMemOwn) {
-        swigCMemOwn = false;
-        GDXJNI.delete_EffekseerBackendCore(swigCPtr);
-      }
-      swigCPtr = 0;
-    }
-  }
-
-  public EffekseerBackendCore() {
-    this(GDXJNI.new_EffekseerBackendCore(), true);
-  }
-
-  public static boolean InitializeAsOpenGL() {
-    return GDXJNI.EffekseerBackendCore_InitializeAsOpenGL();
-  }
-
-  public static void Terminate() {
-    GDXJNI.EffekseerBackendCore_Terminate();
-  }
-
+	private transient long swigCPtr;
+	protected transient boolean swigCMemOwn;
+	
+	protected EffekseerBackendCore(long cPtr, boolean cMemoryOwn) {
+		swigCMemOwn = cMemoryOwn;
+		swigCPtr = cPtr;
+	}
+	
+	protected static long getCPtr(EffekseerBackendCore obj) {
+		return (obj == null) ? 0 : obj.swigCPtr;
+	}
+	
+	@SuppressWarnings("deprecation")
+	protected void finalize() {
+		delete();
+	}
+	
+	public synchronized void delete() {
+		if(swigCPtr != 0) {
+			if(swigCMemOwn) {
+				swigCMemOwn = false;
+				GDXJNI.delete_EffekseerBackendCore(swigCPtr);
+			}
+			swigCPtr = 0;
+		}
+	}
+	
+	public EffekseerBackendCore() {
+		this(GDXJNI.new_EffekseerBackendCore(), true);
+	}
+	
+	public static boolean InitializeAsOpenGL() {
+		return GDXJNI.EffekseerBackendCore_InitializeAsOpenGL();
+	}
+	
+	public static void Terminate() {
+		GDXJNI.EffekseerBackendCore_Terminate();
+	}
+	
 }

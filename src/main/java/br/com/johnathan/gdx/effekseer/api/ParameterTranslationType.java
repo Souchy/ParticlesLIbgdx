@@ -17,44 +17,50 @@ public final class ParameterTranslationType {
   public final static ParameterTranslationType ParameterTranslationType_ViewOffset = new ParameterTranslationType("ParameterTranslationType_ViewOffset", GDXJNI.ParameterTranslationType_ViewOffset_get());
   public final static ParameterTranslationType ParameterTranslationType_None = new ParameterTranslationType("ParameterTranslationType_None", GDXJNI.ParameterTranslationType_None_get());
   public final static ParameterTranslationType ParameterTranslationType_DWORD = new ParameterTranslationType("ParameterTranslationType_DWORD", GDXJNI.ParameterTranslationType_DWORD_get());
-
-  public final int swigValue() {
-    return swigValue;
-  }
-
-  public String toString() {
-    return swigName;
-  }
-
-  public static ParameterTranslationType swigToEnum(int swigValue) {
-    if (swigValue < swigValues.length && swigValue >= 0 && swigValues[swigValue].swigValue == swigValue)
-      return swigValues[swigValue];
-    for (int i = 0; i < swigValues.length; i++)
-      if (swigValues[i].swigValue == swigValue)
-        return swigValues[i];
-    throw new IllegalArgumentException("No enum " + ParameterTranslationType.class + " with value " + swigValue);
-  }
-
-  private ParameterTranslationType(String swigName) {
-    this.swigName = swigName;
-    this.swigValue = swigNext++;
-  }
-
-  private ParameterTranslationType(String swigName, int swigValue) {
-    this.swigName = swigName;
-    this.swigValue = swigValue;
-    swigNext = swigValue+1;
-  }
-
-  private ParameterTranslationType(String swigName, ParameterTranslationType swigEnum) {
-    this.swigName = swigName;
-    this.swigValue = swigEnum.swigValue;
-    swigNext = this.swigValue+1;
-  }
-
-  private static ParameterTranslationType[] swigValues = { ParameterTranslationType_Fixed, ParameterTranslationType_PVA, ParameterTranslationType_Easing, ParameterTranslationType_FCurve, ParameterTranslationType_NurbsCurve, ParameterTranslationType_ViewOffset, ParameterTranslationType_None, ParameterTranslationType_DWORD };
-  private static int swigNext = 0;
-  private final int swigValue;
-  private final String swigName;
+	
+	public final int swigValue() {
+		return swigValue;
+	}
+	
+	public String toString() {
+		return swigName;
+	}
+	
+	public static ParameterTranslationType swigToEnum(int swigValue) {
+		if(swigValue < swigValues.length && swigValue >= 0 && swigValues[swigValue].swigValue == swigValue) return swigValues[swigValue];
+		for (int i = 0; i < swigValues.length; i++)
+			if(swigValues[i].swigValue == swigValue) return swigValues[i];
+		throw new IllegalArgumentException("No enum " + ParameterTranslationType.class + " with value " + swigValue);
+	}
+	
+	private ParameterTranslationType(String swigName) {
+		this.swigName = swigName;
+		this.swigValue = swigNext++;
+	}
+	
+	private ParameterTranslationType(String swigName, int swigValue) {
+		this.swigName = swigName;
+		this.swigValue = swigValue;
+		swigNext = swigValue + 1;
+	}
+	
+	private ParameterTranslationType(String swigName, ParameterTranslationType swigEnum) {
+		this.swigName = swigName;
+		this.swigValue = swigEnum.swigValue;
+		swigNext = this.swigValue + 1;
+	}
+	
+	private static ParameterTranslationType[] swigValues = { 
+			ParameterTranslationType_Fixed, 
+			ParameterTranslationType_PVA, 
+			ParameterTranslationType_Easing,
+			ParameterTranslationType_FCurve, 
+			ParameterTranslationType_NurbsCurve, 
+			ParameterTranslationType_ViewOffset, 
+			ParameterTranslationType_None,
+			ParameterTranslationType_DWORD 
+	};
+	private static int swigNext = 0;
+	private final int swigValue;
+	private final String swigName;
 }
-
