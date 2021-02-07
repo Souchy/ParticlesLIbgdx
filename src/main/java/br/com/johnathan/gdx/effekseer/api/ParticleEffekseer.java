@@ -12,9 +12,19 @@ import com.badlogic.gdx.math.Vector3;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.function.Consumer;
 
 
 public class ParticleEffekseer {
+
+	public static float worldScaleX = 1f;
+	public static float worldScaleY = 1f;
+	public static float worldScaleZ = 1f;
+	
+	public static float worldOffsetX = 0f;
+	public static float worldOffsetY = 0f;
+	public static float worldOffsetZ = 0f;
+	
 
     public final Matrix4 transform = new Matrix4();
 
@@ -34,7 +44,7 @@ public class ParticleEffekseer {
 
     public ParticleEffekseer(EffekseerManager manager) {
         this.manager = Objects.requireNonNull(manager);
-        this.manager.addParticleEffekseer(this);
+//      this.manager.addParticleEffekseer(this);
         effekseerEffectCore = new EffekseerEffectCore();
         // nodes = new ArrayList<>();
     }
@@ -59,7 +69,8 @@ public class ParticleEffekseer {
         */
     }
 
-    protected void delete() {
+    /** protected */
+    public void delete() {
         effekseerEffectCore.delete();
     }
 
@@ -78,7 +89,8 @@ public class ParticleEffekseer {
         manager.effekseerManagerCore.SetEffectScale(handle, scale, scale, scale);
     }
 
-    protected void setMatrix4() {
+    /** protected */
+    public void setMatrix4() {
         if (getmatrix) {
             transform.extract4x3Matrix(mtx);
             manager.effekseerManagerCore.SetMatrix(handle, mtx);
@@ -174,7 +186,7 @@ public class ParticleEffekseer {
         for (int t = 0; t < 3; t++) {
             for (int i = 0; i < effekseerEffectCore.GetTextureCount(textureTypes[t]); i++) {
                 String pathh = null;
-                pathh = (new File(path)).getParent();
+                pathh = new File(path).getParent();
                 if (pathh != null) {
                     pathh += "/" + effekseerEffectCore.GetTexturePath(i, textureTypes[t]);
                 } else {
@@ -192,7 +204,7 @@ public class ParticleEffekseer {
         }
 
         for (int i = 0; i < effekseerEffectCore.GetModelCount(); i++) {
-            String pathh = (new File(path)).getParent();
+            String pathh = new File(path).getParent();
             if (pathh != null) {
                 pathh += "/" + effekseerEffectCore.GetModelPath(i);
             } else {
@@ -209,7 +221,7 @@ public class ParticleEffekseer {
         }
 
         for (int i = 0; i < effekseerEffectCore.GetMaterialCount(); i++) {
-            String pathh = (new File(path)).getParent();
+            String pathh = new File(path).getParent();
             if (pathh != null) {
                 pathh += "/" + effekseerEffectCore.GetMaterialPath(i);
             } else {
@@ -236,6 +248,8 @@ public class ParticleEffekseer {
             nodes.add(node);
         }
          */
+        getmatrix();
+        manager.addParticleEffekseer(this);
     }
 
 
@@ -250,13 +264,36 @@ public class ParticleEffekseer {
     }
 
 
-    public void setPosition2D(Vector2 position) {
+//    public void setPosition2D(Vector2 position) {
       /*  vector2.set(position);
         transform.getTranslation(vector2);
         transform.translate((-(manager.camera.viewportWidth / 2) + vector2.x), (-(manager.camera.viewportHeight / 2) + vector2.y), 0.0f);
        */
-        manager.effekseerManagerCore.SetEffectPosition(handle, ((-(manager.camera.viewportWidth / 2)) + position.x), ((-(manager.camera.viewportHeight / 2)) + position.y), 0.0f);
+//        manager.effekseerManagerCore.SetEffectPosition(handle, ((-(manager.camera.viewportWidth / 2)) + position.x), ((-(manager.camera.viewportHeight / 2)) + position.y), 0.0f);
+//    }
+
+    public void setPosition(float x, float y, float z) {
+        manager.effekseerManagerCore.SetEffectPosition(handle,
+                x * worldScaleX + worldOffsetX, //((-(manager.camera.viewportWidth / 2)) + x),
+                y * worldScaleY + worldOffsetY, //((-(manager.camera.viewportHeight / 2)) + y), 
+                z * worldScaleZ + worldOffsetZ
+        );
+        getmatrix();
     }
+    public void setPosition(Vector3 position) {
+        /*
+         * vector2.set(position); transform.getTranslation(vector2);
+         * transform.translate((-(manager.camera.viewportWidth / 2) + vector2.x),
+         * (-(manager.camera.viewportHeight / 2) + vector2.y), 0.0f);
+         * 
+         */
+        setPosition(position.x, position.y, position.z);
+    }
+
+	public void setPosition(double x, double y, double z) {
+		setPosition((float) x, (float) y, (float) z);
+	}
+
 
     public void pause() {
         manager.effekseerManagerCore.SetPause(handle, true);
@@ -286,5 +323,20 @@ public class ParticleEffekseer {
         void single(VectorPVASingle Class);
     }     
     */
+    
+    
+    public void foreachNode(Consumer<EffekseerNode> consumer) {
+    	foreachNode(consumer, getNode());
+    }
+    
+    protected void foreachNode(Consumer<EffekseerNode> consumer, EffekseerNode node) {
+    	consumer.accept(node);
+    	int size = this.getNodeSize();
+    	System.out.println("Effekseer foreach node size " + size);
+    	for(int i = 0; i < size - 1; i++) {
+    		var n = node.getNode(i);
+    		foreachNode(consumer, n);
+    	}
+    }
     
 }

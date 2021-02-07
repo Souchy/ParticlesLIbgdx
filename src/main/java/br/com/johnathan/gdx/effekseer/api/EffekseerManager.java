@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.PerspectiveCamera;
 import com.badlogic.gdx.graphics.g3d.ModelBatch;
 
 import com.badlogic.gdx.graphics.g3d.utils.ModelBuilder;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
@@ -74,32 +75,40 @@ public class EffekseerManager implements Disposable {
     public void draw(float delta) {
         camera.update();
 
-        Gdx.gl.glEnable(GL20.GL_BLEND);
-        Gdx.gl.glEnable(GL20.GL_DEPTH_TEST);
-        Gdx.gl.glCullFace(GL20.GL_FRONT);
+//        Gdx.gl.glEnable(GL20.GL_BLEND);
+//        Gdx.gl.glEnable(GL20.GL_DEPTH_TEST);
+//        Gdx.gl.glCullFace(GL20.GL_FRONT);
 
 
-        for (ParticleEffekseer effekseer : effekseers) {
-            effekseer.update(delta);
-            if (effekseer.isPlay()) {
-                if (!effekseerManagerCore.IsPlaing(effekseer.getHandle())) {
-                    effekseer.setPlay(false);
-                    if (effekseer.getOnAnimationComplete() != null) {
-                        effekseer.getOnAnimationComplete().finish();
+        for (ParticleEffekseer effect : effekseers) {
+            effect.update(delta);
+            if (effect.isPlay()) {
+                if (!effekseerManagerCore.IsPlaing(effect.getHandle())) {
+                    effect.setPlay(false);
+                    if (effect.getOnAnimationComplete() != null) {
+                        effect.getOnAnimationComplete().finish();
                     }
                 }
             }
             if (camera instanceof PerspectiveCamera) {
-                effekseer.setMatrix4();
+                effect.setMatrix4();
             }
         }
 
         if (camera instanceof OrthographicCamera) {
-            if (viewport != null) {
-                effekseerManagerCore.SetProjectionMatrix((camera).projection.val, (camera).view.val, false, viewport.getWorldWidth(), viewport.getWorldHeight());
-            } else {
-                effekseerManagerCore.SetProjectionMatrix((camera).projection.val, (camera).view.val, false, camera.viewportWidth, camera.viewportHeight);
-            }
+//            if (viewport != null) {
+//                effekseerManagerCore.SetProjectionMatrix((camera).projection.val, (camera).view.val, false, viewport.getWorldWidth(), viewport.getWorldHeight());
+//            } else {
+//                effekseerManagerCore.SetProjectionMatrix((camera).projection.val, (camera).view.val, false, camera.viewportWidth, camera.viewportHeight);
+//    			
+//            }
+            effekseerManagerCore.SetProjectionMatrix(
+					camera.projection.val, 
+					camera.view.cpy().rotate(Vector3.X, 90).val, 
+					true, 
+					camera.viewportWidth,
+					camera.viewportHeight
+			);
         }
 
         if (camera instanceof PerspectiveCamera) {
@@ -110,9 +119,9 @@ public class EffekseerManager implements Disposable {
         effekseerManagerCore.DrawBack();
         effekseerManagerCore.DrawFront();
 
-        Gdx.gl.glCullFace(GL20.GL_BACK);
-        Gdx.gl.glDisable(GL20.GL_DEPTH_TEST);
-        Gdx.gl.glDisable(GL20.GL_BLEND);
+//        Gdx.gl.glCullFace(GL20.GL_BACK);
+//        Gdx.gl.glDisable(GL20.GL_DEPTH_TEST);
+//        Gdx.gl.glDisable(GL20.GL_BLEND);
     }
 
 
